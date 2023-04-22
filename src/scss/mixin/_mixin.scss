@@ -1,0 +1,17 @@
+@import '../abstracts/variables.scss';
+
+@mixin light-mode {
+  :root {
+    @each $color, $value in map-get($theme-colors, light) {
+      --bs-#{$color}: #{$value};
+    }
+  }
+}
+
+@mixin dark-mode {
+  :root {
+    @each $color, $value in map-get($theme-colors, dark) {
+      --bs-#{$color}: #{$value};
+    }
+  }
+}
