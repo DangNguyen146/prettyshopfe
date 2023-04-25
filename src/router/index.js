@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AddCategory from '../views/Category/AddCategory.vue'
+import AddCategory from '../views/Admin/Category/AddCategory.vue'
+import Category from '../views/Admin/Category/Category.vue'
+import EditCategory from '../views/Admin/Category/EditCategory.vue'
 
 const routes = [
   {
@@ -23,13 +25,29 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path:'/admin/category/add',
-    name: 'AddCaegory',
+    path: '/admin/category/add',
+    name: 'AddCategory',
     component: AddCategory,
     meta: {
       title: 'Introduce'
     },
-  }
+  },
+  {
+    path: '/admin/category/:id',
+    name: 'EditCategory',
+    component: EditCategory,
+    meta: {
+      title: 'Introduce'
+    },
+  },
+  {
+    path: '/admin/category',
+    name: 'AdminCategory',
+    component: Category,
+    meta: {
+      title: 'Manager category'
+    },
+  },
 ]
 
 const router = createRouter({
