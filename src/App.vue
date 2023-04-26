@@ -1,37 +1,47 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view @fetchData="fetchData"></router-view>
+  <Navbar />
+  <router-view v-if="products && categories" :baseURL="baseURL" :products="products" :categories="categories"
+    @fetchData="fetchData"></router-view>
 </template>
 
 <script>
 
 import { apiUrl } from "@/config/config";
 const axios = require("axios");
+import Navbar from "@/components/Navbar.vue";
 export default {
   name: 'App',
   components: {
-    
+    Navbar
+  },
+  data() {
+    return {
+      baseURL: apiUrl,
+      //baseURL: "http://localhost:8080/",
+      products: null,
+      categories: null,
+      key: 0,
+      token: null,
+      cartCount: 0,
+    };
   },
   methods: {
     async fetchData() {
       // fetch products
       await axios
-        .get(`${apiUrl}product/`)
-        .then((res) => (this.products = res.data))
+        .get(this.baseURL + 'product/')
+        .then((res) => (this.products = res.data.content))
         .catch((err) => console.log(err));
 
       //fetch categories
       await axios
-        .get(`${apiUrl}category/`)
+        .get(this.baseURL + 'category/')
         .then((res) => (this.categories = res.data))
         .catch((err) => console.log(err));
 
       //fetch cart items
       if (this.token) {
-        await axios.get(`${apiUrl}cart/?token=${this.token}`).then(
+        await axios.get(this.baseURL + 'cart/?token=${this.token}').then(
           (response) => {
             if (response.status == 200) {
               // update cart
@@ -44,7 +54,11 @@ export default {
         );
       }
     }
-  }
+  },
+  mounted() {
+    this.token = localStorage.getItem('token');
+    this.fetchData();
+  },
 }
 </script>
 
@@ -55,6 +69,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

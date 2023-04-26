@@ -7,7 +7,7 @@ import EditCategory from '../views/Admin/Category/EditCategory.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView,
     meta: {
       title: 'HomePage'
