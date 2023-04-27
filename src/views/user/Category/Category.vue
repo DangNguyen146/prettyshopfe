@@ -1,0 +1,10 @@
+<template>
+    <div></div>
+</template>
+
+<script>
+/* eslint-disable vue/multi-word-component-names */
+export default {
+    name: "Category"
+}
+</script>

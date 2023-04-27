@@ -20,7 +20,7 @@ const axios = require("axios");
 import CategoryBox from "@/components/Category/CategoryBox.vue"
 import { apiUrl } from "@/config/config";
 export default {
-    name: 'Category',
+    name: 'CategoryAdmin',
     components: { CategoryBox },
     data() {
         return {

@@ -1,18 +1,25 @@
 <template>
-  <Navbar />
+  <NavBar v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)"/>
+  <NavbarSearch v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)"/>
   <router-view v-if="products && categories" :baseURL="baseURL" :products="products" :categories="categories"
     @fetchData="fetchData"></router-view>
+    <Footer v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)"/>
 </template>
 
 <script>
 
 import { apiUrl } from "@/config/config";
 const axios = require("axios");
-import Navbar from "@/components/Navbar.vue";
+import NavBar from "@/components/Navbar/Navbar.vue";
+import NavbarSearch from "@/components/Navbar/NavbarSearch.vue";
+import Footer from "@/components/Footer.vue";
+
+// import '~mdb-ui-kit/css/mdb.min.css';
+
 export default {
   name: 'App',
   components: {
-    Navbar
+    NavBar, NavbarSearch, Footer
   },
   data() {
     return {
@@ -67,7 +74,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 </style>
