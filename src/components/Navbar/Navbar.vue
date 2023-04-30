@@ -7,10 +7,10 @@
                         <router-link class="nav-link active" :to="{ name: 'Home' }">Home</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" :to="{ name: 'Product' }">Product</router-link>
+                        <router-link class="nav-link" :to="{ name: 'Category' }">Category</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" :to="{ name: 'Category' }">Category</router-link>
+                        <router-link class="nav-link" :to="{ name: 'Product' }">Product</router-link>
                     </li>
                 </ul>
             </div>
@@ -33,20 +33,25 @@
 
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <!-- Icon -->
-                        <a class="link-secondary me-3" href="#">
+                        <router-link class="link-secondary me-3" :to="{ name: 'CartView' }">
                             <i class="fas fa-shopping-cart"></i>
-                        </a>
+                            <span class="badge rounded-pill badge-notification bg-danger">{{ countCart }}</span>
+                        </router-link>
 
                         <!-- Notifications -->
                         <div class="dropdown">
                             <a class="link-secondary me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
                                 role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-bell"></i>
-                                <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                                </svg>
+                                <span class="badge rounded-pill badge-notification bg-danger">{{ count }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item" href="#">Some news</a>
+                                    <router-link class="dropdown-item" :to="{ name: 'WishList' }">Withlist</router-link>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">Another news</a>
@@ -98,10 +103,15 @@
   
 <script>
 import swal from 'sweetalert';
-// const axios = require("axios");
+import { mapState, mapGetters } from 'vuex';
+
 
 export default {
     name: "NavBar",
+    computed: {
+        ...mapState(['count', 'countCart']),
+        ...mapGetters(['getCount', 'getCountCart']),
+    },
     data() {
         return {
             token: localStorage.getItem("token"),
@@ -119,6 +129,11 @@ export default {
                 closeOnClickOutside: false,
             });
         },
+        incrementCount() {
+            // return this.$store.commit('increment'); // Thay đổi trạng thái trong store
+            
+        },
+
     },
     mounted() {
         this.token = localStorage.getItem("token");
@@ -127,8 +142,9 @@ export default {
 
 </script>
 <style>
-.navigation, .text-bg-dark {
-    background-color: #1d262d!important;
+.navigation,
+.text-bg-dark {
+    background-color: #1d262d !important;
 }
 
 .navigation .rightnavbar button,

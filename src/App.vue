@@ -1,9 +1,9 @@
 <template>
-  <NavBar v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)"/>
-  <NavbarSearch v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)"/>
+  <NavBar :products_num="products_num" v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
+  <NavbarSearch v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
   <router-view v-if="products && categories" :baseURL="baseURL" :products="products" :categories="categories"
     @fetchData="fetchData"></router-view>
-    <Footer v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)"/>
+  <Footer v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
 </template>
 
 <script>
@@ -13,6 +13,7 @@ const axios = require("axios");
 import NavBar from "@/components/Navbar/Navbar.vue";
 import NavbarSearch from "@/components/Navbar/NavbarSearch.vue";
 import Footer from "@/components/Footer.vue";
+import { mapState } from 'vuex'
 
 // import '~mdb-ui-kit/css/mdb.min.css';
 
@@ -20,6 +21,9 @@ export default {
   name: 'App',
   components: {
     NavBar, NavbarSearch, Footer
+  },
+  computed: {
+    ...mapState(['count'])
   },
   data() {
     return {
@@ -30,6 +34,7 @@ export default {
       key: 0,
       token: null,
       cartCount: 0,
+      products_num: 0,
     };
   },
   methods: {
@@ -46,13 +51,16 @@ export default {
         .then((res) => (this.categories = res.data))
         .catch((err) => console.log(err));
 
+
+
       //fetch cart items
       if (this.token) {
-        await axios.get(this.baseURL + 'cart/?token=${this.token}').then(
+        await axios.get(this.baseURL + `cart/?token=${this.token}`).then(
           (response) => {
             if (response.status == 200) {
               // update cart
               this.cartCount = Object.keys(response.data.cartItems).length;
+              this.$store.commit('incrementCart', {value: 0 , callapi: this.cartCount});
             }
           },
           (error) => {
@@ -60,11 +68,22 @@ export default {
           }
         );
       }
+    },
+    async fetchDataWish() {
+      await axios
+        .get(this.baseURL + 'wishlist/' + this.token)
+        .then(data => {
+          this.products_num = data.data.length;
+          
+          this.$store.commit('increment', this.products_num);
+         }) // Thay đổi trạng thái trong store })
+        .catch(err => console.log(err));
     }
   },
   mounted() {
     this.token = localStorage.getItem('token');
     this.fetchData();
+    this.fetchDataWish();
   },
 }
 </script>

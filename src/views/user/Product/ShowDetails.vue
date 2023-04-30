@@ -1,11 +1,12 @@
 <template>
-    <div class="container">
-        <div class="row pt-5">
-            <div class="col-md-1"></div>
-            <div class="col-md-4 col-12">
-                <img :src="product.imageURL" :alt="product.name" class="img-fluid" />
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-3 d-block d-md-none"></div>
+            <div class="col-6 col-md-5 col-xl-4">
+                <img :src="product.imageURL" :alt="product.name" class=" rounded-2 shadow-sm w-100" />
             </div>
-            <div class="col-md-6 col-12 pt-3 pt-md-0">
+            <div class="col-3 d-block d-md-none"></div>
+            <div class="col-8">
                 <h4>{{ product.name }}</h4>
                 <h6 class="category font-italic">{{ category.categoryName }}</h6>
                 <h6 class="font-weight-bold">$ {{ product.price }}</h6>
@@ -14,14 +15,14 @@
                 </p>
 
                 <div class="d-flex flex-row justify-content-between">
-                    <div class="input-group col-md-3 col-4 p-0">
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Quantity</span>
                         </div>
                         <input class="form-control" type="number" v-bind:value="quantity" />
                     </div>
 
-                    <div class="input-group col-md-3 col-4 p-0">
+                    <div class="input-group">
                         <button type="button" id="add-to-cart-button" class="btn" @click="addToCart(this.id)">
                             Add to Cart
                             <ion-icon name="cart-outline" v-pre></ion-icon>
@@ -39,7 +40,7 @@
                         <li>ut doloremque dolore corrupti, architecto iusto beatae.</li>
                     </ul>
                 </div>
-
+                <hr class="my-4" />
                 <button id="wishlist-button" class="btn mr-3 p-1 py-0"
                     :class="{ product_added_wishlist: isAddedToWishlist }" @click="addToWishList(this.id)">
                     {{ wishlistString }}
@@ -50,7 +51,6 @@
                     <ion-icon name="cart-outline" v-pre></ion-icon>
                 </button>
             </div>
-            <div class="col-md-1"></div>
         </div>
     </div>
 </template>
@@ -59,7 +59,9 @@
 import swal from 'sweetalert';
 const axios = require("axios");
 import { apiUrl } from "@/config/config";
+import { mapState, mapGetters } from 'vuex';
 export default {
+    name:"ShowDetail",
     data() {
         return {
             product: {},
@@ -72,15 +74,26 @@ export default {
         };
     },
     props: ["baseURL", "products", "categories"],
+    computed: {
+        ...mapState(['count']),
+        ...mapGetters(['getCount']),
+    },
     methods: {
-        addToWishList(productId) {
+        addToWishList() {
+            this.$store.commit('increment');
             axios
                 .post(`${this.baseURL}wishlist/add?token=${this.token}`, {
-                    id: productId,
+                    id: this.product.id,
+                    name: this.product.name,
+                    imageURL: this.product.imageURL,
+                    price: this.product.price,
+                    description: this.product.description,
+                    categoryId: this.product.categoryId
                 })
                 .then(
                     (response) => {
                         if (response.status == 201) {
+                            this.$emit("fetchData");
                             this.isAddedToWishlist = true;
                             this.wishlistString = "Added to WishList";
                         }
@@ -170,9 +183,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
-    -moz-appearance: textfield;
-}
 
 #add-to-cart-button {
     background-color: #febd69;

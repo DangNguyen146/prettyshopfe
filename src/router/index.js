@@ -15,6 +15,11 @@ import Category from "../views/user/Category/Category.vue"
 import Product from "../views/user/Product/Product.vue"
 import ListProducts from "../views/user/Product/ListProducts.vue"
 
+import WishList from '../views/user/Wishlist.vue'
+
+import CartView from '../views/user/CartView/CartView.vue'
+import CheckOut from '../views/user/CartView/CheckOut.vue'
+
 const routes = [
   {
     path: '/',
@@ -39,6 +44,11 @@ const routes = [
     path : '/category/show/:id',
     name : 'ListProducts',
     component: ListProducts
+  },
+  {
+    path: '/wishlist',
+    name: 'WishList',
+    component: WishList
   },
   {
     path: '/about',
@@ -103,6 +113,16 @@ const routes = [
     path: '/admin/product/:id',
     name: 'EditProduct',
     component: EditProduct,
+  },
+  {
+    path : '/cart',
+    name : 'CartView',
+    component : CartView
+  },
+  {
+    path : '/checkout',
+    name : 'CheckOut',
+    component : CheckOut
   },
 ]
 
