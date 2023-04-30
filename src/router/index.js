@@ -1,17 +1,60 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+
+//admin
 import AddCategory from '../views/Admin/Category/AddCategory.vue'
-import Category from '../views/Admin/Category/Category.vue'
+import CategoryAdmin from '../views/Admin/Category/Category.vue'
 import EditCategory from '../views/Admin/Category/EditCategory.vue'
+import ShowDetails from '../views/user/Product/ShowDetails.vue'
+import EditProduct from '../views/Admin/Product/EditProduct.vue'
+
+import SignupUpForm from "../views/user/SignupUpForm.vue";
+import SigninUpForm from "../views/user/SigninUpForm.vue";
+
+import HomeView from '../views/HomeView.vue'
+import Category from "../views/user/Category/Category.vue"
+import Product from "../views/user/Product/Product.vue"
+import ListProducts from "../views/user/Product/ListProducts.vue"
+
+import WishList from '../views/user/Wishlist.vue'
+
+import CartView from '../views/user/CartView/CartView.vue'
+import CheckOut from '../views/user/CartView/CheckOut.vue'
+
+import FailedPayment from '../views/Helper/Payment/FailedPayment.vue';
+import SuccessPayment from '../views/Helper/Payment/SuccessPayment.vue';
+
+import OrderDetail from "../views/user/Order/OrderDetail.vue"
+import OrderView from "../views/user/Order/OrderView.vue"
 
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView,
     meta: {
       title: 'HomePage'
     }
+  },
+  //Product routes
+  {
+    path: '/product',
+    name: 'Product',
+    component: Product
+  },
+  {
+    path: '/category',
+    name: 'Category',
+    component: Category
+  },
+  {
+    path: '/category/show/:id',
+    name: 'ListProducts',
+    component: ListProducts
+  },
+  {
+    path: '/wishlist',
+    name: 'WishList',
+    component: WishList
   },
   {
     path: '/about',
@@ -23,6 +66,22 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path: '/signup',
+    name: 'SignupUpForm',
+    component: SignupUpForm,
+    meta: {
+      title: 'Signup'
+    },
+  },
+  {
+    path: '/signin',
+    name: 'SigninUpForm',
+    component: SigninUpForm,
+    meta: {
+      title: 'SigninUpForm'
+    },
   },
   {
     path: '/admin/category/add',
@@ -43,11 +102,54 @@ const routes = [
   {
     path: '/admin/category',
     name: 'AdminCategory',
-    component: Category,
+    component: CategoryAdmin,
     meta: {
       title: 'Manager category'
     },
   },
+  {
+    path: '/product/show/:id',
+    name: 'ShowDetails',
+    component: ShowDetails,
+    meta: {
+      title: 'Product :id'
+    },
+  },
+  {
+    path: '/admin/product/:id',
+    name: 'EditProduct',
+    component: EditProduct,
+  },
+  {
+    path: '/cart',
+    name: 'CartView',
+    component: CartView
+  },
+  {
+    path: '/checkout',
+    name: 'CheckOut',
+    component: CheckOut
+  },
+  {
+    path: '/payment/success',
+    name: 'SuccessPayment',
+    component: SuccessPayment
+  },
+  {
+    path: '/payment/failed',
+    name: 'FailedPayment',
+    component: FailedPayment
+  },
+  {
+    path: '/order/',
+    name: 'OrderView',
+    component: OrderView
+  },
+  {
+    path:'/order/:id',
+    name:'OrderDetail',
+    component: OrderDetail
+  }
 ]
 
 const router = createRouter({

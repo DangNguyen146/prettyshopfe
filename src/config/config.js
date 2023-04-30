@@ -1,5 +1,5 @@
 //config.js
-const apiUrl = 'http://localhost:8081/';
+const apiUrl = 'https://prettyshopbe.onrender.com/';
 
 
 export { apiUrl };

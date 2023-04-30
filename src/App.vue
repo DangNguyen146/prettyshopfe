@@ -1,41 +1,66 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view @fetchData="fetchData"></router-view>
+  <NavBar :products_num="products_num" v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
+  <NavbarSearch v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
+  <router-view v-if="products && categories" :baseURL="baseURL" :products="products" :categories="categories"
+    @fetchData="fetchData"></router-view>
+  <Footer v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
 </template>
 
 <script>
 
 import { apiUrl } from "@/config/config";
 const axios = require("axios");
+import NavBar from "@/components/Navbar/Navbar.vue";
+import NavbarSearch from "@/components/Navbar/NavbarSearch.vue";
+import Footer from "@/components/Footer.vue";
+import { mapState } from 'vuex'
+
+// import '~mdb-ui-kit/css/mdb.min.css';
+
 export default {
   name: 'App',
   components: {
-    
+    NavBar, NavbarSearch, Footer
+  },
+  computed: {
+    ...mapState(['count'])
+  },
+  data() {
+    return {
+      baseURL: apiUrl,
+      //baseURL: "http://localhost:8080/",
+      products: null,
+      categories: null,
+      key: 0,
+      token: null,
+      cartCount: 0,
+      products_num: 0,
+    };
   },
   methods: {
     async fetchData() {
       // fetch products
       await axios
-        .get(`${apiUrl}product/`)
-        .then((res) => (this.products = res.data))
+        .get(this.baseURL + 'product/')
+        .then((res) => (this.products = res.data.content))
         .catch((err) => console.log(err));
 
       //fetch categories
       await axios
-        .get(`${apiUrl}category/`)
+        .get(this.baseURL + 'category/')
         .then((res) => (this.categories = res.data))
         .catch((err) => console.log(err));
 
+
+
       //fetch cart items
       if (this.token) {
-        await axios.get(`${apiUrl}cart/?token=${this.token}`).then(
+        await axios.get(this.baseURL + `cart/?token=${this.token}`).then(
           (response) => {
             if (response.status == 200) {
               // update cart
               this.cartCount = Object.keys(response.data.cartItems).length;
+              this.$store.commit('incrementCart', {value: 0 , callapi: this.cartCount});
             }
           },
           (error) => {
@@ -43,8 +68,23 @@ export default {
           }
         );
       }
+    },
+    async fetchDataWish() {
+      await axios
+        .get(this.baseURL + 'wishlist/' + this.token)
+        .then(data => {
+          this.products_num = data.data.length;
+          
+          this.$store.commit('increment', this.products_num);
+         }) // Thay đổi trạng thái trong store })
+        .catch(err => console.log(err));
     }
-  }
+  },
+  mounted() {
+    this.token = localStorage.getItem('token');
+    this.fetchData();
+    this.fetchDataWish();
+  },
 }
 </script>
 
@@ -53,8 +93,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
