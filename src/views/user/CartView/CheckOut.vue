@@ -3,7 +3,7 @@
         <h3>You will be redirected to payment page</h3>
 
         <div class="alert alert-primary" role="alert">
-            While making payment use card number 4242 4242 4242 4242 and enter random
+            While making payment use card number 4242424242424242 and enter random
             cvv(3 digit)
         </div>
 
@@ -14,16 +14,16 @@
 </template>
 <script>
 const axios = require('axios');
-// import Stripe from '@stripe/stripe-js'
+
 
 
 export default {
     data() {
         return {
-            // stripeAPIToken: process.env.VUE_APP_STRIPETOKEN,
-            // stripe: '',
+            stripeAPIToken: process.env.VUE_APP_STRIPETOKEN,
+            stripe: '',
             token: null,
-            // sessionId: null,
+            sessionId: null,
             checkoutBodyArray: [],
         };
     },
@@ -35,13 +35,14 @@ export default {
           Configures Stripe by setting up the elements and
           creating the card element.
         */
-        // configureStripe() { },
+        configureStripe() { },
 
         getAllItems() {
             axios.get(`${this.baseURL}cart/?token=${this.token}`).then(
                 (response) => {
                     if (response.status == 200) {
                         let products = response.data;
+                        console.log(products);
                         let len = Object.keys(products.cartItems).length;
                         for (let i = 0; i < len; i++)
                             this.checkoutBodyArray.push({
@@ -53,6 +54,7 @@ export default {
                                 userId: products.cartItems[i].userId,
                             });
                     }
+                    console.log(this.checkoutBodyArray);
                 },
                 (err) => {
                     console.log(err);
@@ -60,29 +62,34 @@ export default {
             );
         },
 
-        // goToCheckout() {
-        //     axios
-        //         .post(
-        //             this.baseURL + 'order/create-checkout-session',
-        //             this.checkoutBodyArray
-        //         )
-        //         .then((response) => {
-        //             localStorage.setItem('sessionId', response.data.sessionId);
-        //             return response.data;
-        //         })
-        //         .then((session) => {
-        //             return this.stripe.redirectToCheckout({
-        //                 sessionId: session.sessionId,
-        //             });
-        //         });
-        // },
+        goToCheckout() {
+            console.log("------------1---------------------")
+
+            console.log(this.checkoutBodyArray);
+            console.log("------------2---------------------")
+            axios
+                .post(
+                    this.baseURL + 'order/create-checkout-session',
+                    this.checkoutBodyArray
+                )
+                .then((response) => {
+                    localStorage.setItem('sessionId', response.data.sessionId);
+                    return response.data;
+                })
+                .then((session) => {
+                    return this.stripe.redirectToCheckout({
+                        sessionId: session.sessionId,
+                    });
+                });
+        },
     },
     mounted() {
         // get the token
         this.token = localStorage.getItem('token');
         // get all the cart items
-        // this.stripe = Stripe(this.stripeAPIToken);
-        // this.getAllItems();
+        console.log(this.stripeAPIToken);
+        this.getAllItems();
+        this.stripe = window.Stripe(this.stripeAPIToken);
     },
 };
 </script>

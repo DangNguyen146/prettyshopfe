@@ -20,6 +20,12 @@ import WishList from '../views/user/Wishlist.vue'
 import CartView from '../views/user/CartView/CartView.vue'
 import CheckOut from '../views/user/CartView/CheckOut.vue'
 
+import FailedPayment from '../views/Helper/Payment/FailedPayment.vue';
+import SuccessPayment from '../views/Helper/Payment/SuccessPayment.vue';
+
+import OrderDetail from "../views/user/Order/OrderDetail.vue"
+import OrderView from "../views/user/Order/OrderView.vue"
+
 const routes = [
   {
     path: '/',
@@ -41,8 +47,8 @@ const routes = [
     component: Category
   },
   {
-    path : '/category/show/:id',
-    name : 'ListProducts',
+    path: '/category/show/:id',
+    name: 'ListProducts',
     component: ListProducts
   },
   {
@@ -115,15 +121,35 @@ const routes = [
     component: EditProduct,
   },
   {
-    path : '/cart',
-    name : 'CartView',
-    component : CartView
+    path: '/cart',
+    name: 'CartView',
+    component: CartView
   },
   {
-    path : '/checkout',
-    name : 'CheckOut',
-    component : CheckOut
+    path: '/checkout',
+    name: 'CheckOut',
+    component: CheckOut
   },
+  {
+    path: '/payment/success',
+    name: 'SuccessPayment',
+    component: SuccessPayment
+  },
+  {
+    path: '/payment/failed',
+    name: 'FailedPayment',
+    component: FailedPayment
+  },
+  {
+    path: '/order/',
+    name: 'OrderView',
+    component: OrderView
+  },
+  {
+    path:'/order/:id',
+    name:'OrderDetail',
+    component: OrderDetail
+  }
 ]
 
 const router = createRouter({

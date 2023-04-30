@@ -83,6 +83,9 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                                 <li>
+                                    <router-link :to="{ name: 'OrderView' }" class="dropdown-item" href="#">Your order</router-link>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href="#">My profile</a>
                                 </li>
                                 <li>
