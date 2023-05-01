@@ -1,20 +1,12 @@
 <template>
-    <nav class="navigation navbar navbar-expand-lg navbar-dark" aria-label="Offcanvas navbar large">
+    <nav class="navigation navbar navbar-expand-lg navbar-dark " aria-label="Offcanvas navbar large">
         <div class="container-fluid">
             <div class="nav-bard d-none d-md-block">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <router-link class="nav-link active" :to="{ name: 'Home' }">Home</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" :to="{ name: 'Category' }">Category</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" :to="{ name: 'Product' }">Product</router-link>
-                    </li>
+                    Hotline: 0817764291 | Email: blacksonia.tm@gmail.com
                 </ul>
             </div>
-            <button class="navbar-toggler border-5" type="button" data-bs-toggle="offcanvas"
+            <button class="btn btn-outline-light border border-white navbar-toggler pt-0 pb-1 px-2" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-justify"
                     viewBox="0 0 16 16">
@@ -31,73 +23,28 @@
                 </div>
                 <div class="offcanvas-body">
 
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <!-- Icon -->
-                        <router-link class="link-secondary me-3" :to="{ name: 'CartView' }">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="badge rounded-pill badge-notification bg-danger">{{ countCart }}</span>
-                        </router-link>
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ">
+                        <li class="nav-item" :class="{ 'active': $route.name == 'Home' }">
+                            <router-link class="nav-link text-black" :to="{ name: 'Home' }" >Home</router-link>
+                        </li>
 
-                        <!-- Notifications -->
-                        <div class="dropdown">
-                            <a class="link-secondary me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
-                                role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                                </svg>
-                                <span class="badge rounded-pill badge-notification bg-danger">{{ count }}</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                <li>
-                                    <router-link class="dropdown-item" :to="{ name: 'WishList' }">Withlist</router-link>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Another news</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- login singinup -->
-                        <div class="rightnavbar" v-if="!token">
-                            <router-link :to="{ name: 'SigninUpForm' }">
-                                <button type="button" class="btn btn-tertiary px-3"
-                                    data-mdb-ripple-color="light">Login</button>
-                            </router-link>
-                            <router-link :to="{ name: 'SignupUpForm' }">
-                                <button type="button" class="ms-3 btn btn-outline-secondary" data-mdb-ripple-color="dark">
-                                    Signup</button>
-                            </router-link>
+                        <li class="nav-item" :class="{ 'active': $route.name == 'Category' }">
+                            <router-link class="nav-link text-black" :to="{ name: 'Category' }">Category</router-link>
+                        </li>
 
-                        </div>
-                        <!-- Avatar -->
-                        <div class="dropdown" v-if="token">
-                            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
-                                id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown"
-                                aria-expanded="false">
-                                <img src="../../assets/logo/logo.png" class="rounded-circle" height="25"
-                                    alt="Black and White Portrait of a Man" loading="lazy" />
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                                <li>
-                                    <router-link :to="{ name: 'OrderView' }" class="dropdown-item" href="#">Your order</router-link>
-                                </li>
-                                <li v-if="role">
-                                    <router-link   class="dropdown-item" :to="{ name: 'AdminView' }">Admin</router-link >
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Settings</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#" @click="signout">Logout</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <li class="nav-item" :class="{ 'active': $route.name == 'Product' }">
+                            <router-link class="nav-link text-black" :to="{ name: 'Product' }">Product</router-link>
+                        </li>
+                        <li class="nav-item" :class="{ 'active': $route.name == 'about' }">
+                            <router-link class="nav-link text-black" :to="{ name: 'about' }">About</router-link>
+                        </li>
+                        <li class="nav-item" :class="{ 'active': $route.name == 'NewsView' }">
+                            <router-link class="nav-link text-black" :to="{ name: 'NewsView' }">News</router-link>
+                        </li>
+                        <li class="nav-item" :class="{ 'active': $route.name == 'CareerView' }">
+                            <router-link class="nav-link text-black" :to="{ name: 'CareerView' }">Career</router-link>
+                        </li>
                     </ul>
-
                 </div>
             </div>
         </div>
@@ -107,7 +54,8 @@
 <script>
 import swal from 'sweetalert';
 import { mapState, mapGetters } from 'vuex';
-
+// import ButtonLoginSignup from "../../components/Button/ButtonLoginSignup.vue"
+// import CartButton from "../../components/Button/CartButton.vue"
 
 export default {
     name: "NavBar",
@@ -115,6 +63,10 @@ export default {
         ...mapState(['count', 'countCart', 'role']),
         ...mapGetters(['getCount', 'getCountCart']),
     },
+    props: {
+        active: Number,
+    },
+    // components: { ButtonLoginSignup, CartButton },
     data() {
         return {
             token: localStorage.getItem("token"),
@@ -143,14 +95,15 @@ export default {
 <style>
 .navigation,
 .text-bg-dark {
-    background-color: #1d262d !important;
+    background-color: #fabb00 !important;
 }
 
 .navigation .rightnavbar button,
 .navigation {
-    font-weight: 600;
     font-size: 14px;
-    color: #a5b7c6;
     text-transform: none;
+}
+.navigation .active{
+    font-weight: 600;
 }
 </style>

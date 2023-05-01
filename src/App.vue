@@ -2,7 +2,7 @@
   <NavBar :products_num="products_num" v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
   <NavbarSearch v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
   <router-view v-if="products && categories" :baseURL="baseURL" :role="role" :products="products" :categories="categories"
-    @fetchData="fetchData" >
+    @fetchData="fetchData">
   </router-view>
   <Footer v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
 </template>
@@ -74,8 +74,8 @@ export default {
       await axios
         .get(this.baseURL + `user/getrole?token=${this.token}`)
         .then((res) => {
-          if(res.data.role=="admin")
-            this.$store.commit('setRole', { value: 1});
+          if (res.data.role == "admin")
+            this.$store.commit('setRole', { value: 1 });
         })
         .catch((err) => console.log(err));
     },
@@ -104,5 +104,17 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+
+.btn-red {
+  background-color: #e5012b;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-red:hover {
+  background-color: #ff002f;
+  color: #fff;
 }
 </style>

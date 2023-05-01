@@ -14,6 +14,8 @@ import HomeView from '../views/HomeView.vue'
 import Category from "../views/user/Category/Category.vue"
 import Product from "../views/user/Product/Product.vue"
 import ListProducts from "../views/user/Product/ListProducts.vue"
+import NewsView from "../views/user/News/NewsView.vue"
+import CareerView from "../views/user/Career/CareerView.vue"
 
 import WishList from '../views/user/Wishlist.vue'
 
@@ -51,6 +53,21 @@ const routes = [
     path: '/product',
     name: 'Product',
     component: Product
+  },
+  {
+    path: '/news',
+    name: 'NewsView',
+    component: NewsView
+  },
+  {
+    path: '/news',
+    name: 'NewsView',
+    component: NewsView
+  },
+  {
+    path: '/career',
+    name: 'CareerView',
+    component: CareerView
   },
   {
     path: '/category',

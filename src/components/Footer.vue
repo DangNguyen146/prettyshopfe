@@ -1,6 +1,6 @@
 <template>
     <!-- Footer -->
-    <footer class="navigation text-center text-lg-start  text-light mt-5">
+    <footer class="footer text-center text-lg-start  text-light mt-5">
         <!-- Section: Social media -->
         <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
             <!-- Left -->
@@ -133,3 +133,13 @@ export default {
 }
 
 </script>
+
+<style scoped>
+.footer{
+    background-color: black;
+
+}
+.footer h6{
+    color: red;
+}
+</style>

@@ -52,27 +52,31 @@
   </div>
   <!-- Carousel wrapper -->
 
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-left">
-        <h2 class="pt-3">Top Categories</h2>
-      </div>
+  <div class="category container card mt-3">
+    <div class="card-header position-relative">
+      <h2 class="pt-3">Top Categories</h2>
+      <router-link :to="{ name: 'Category' }" class="btn btn-red float-end position-absolute" style="right: 0;
+    top: 25%;">View more</router-link>
     </div>
-    <div class="row">
-      <div v-for="category of categories" :key="category.id" class="col-6 col-md-4 col-lg-3 mb-4">
-        <CategoryBox :category="category"></CategoryBox>
+    <div class="card-body">
+      <div class="row">
+        <div v-for="category of categories" :key="category.id" class="col-3 col-md-3 col-lg-2 mb-4">
+          <CategoryBoxHome :category="category"></CategoryBoxHome>
+        </div>
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-left">
-        <h2 class="pt-3">Top Product</h2>
-      </div>
+  <div class="category container card mt-3">
+    <div class="card-header position-relative">
+      <h2 class="pt-3">Top Product</h2>
+      <router-link :to="{ name: 'Product' }" class="btn btn-red float-end position-absolute" style="right: 0;
+    top: 25%;">View more</router-link>
     </div>
-    <div class="row">
-      <div v-for="product of products" :key="product.id" class="col-6 col-md-4 col-xl-3">
-        <ProductBox :product="product"></ProductBox>
+    <div class="card-body">
+      <div class="row">
+        <div v-for="product of products" :key="product.id" class="col-6 col-md-4 col-xl-3">
+          <ProductBox :product="product"></ProductBox>
+        </div>
       </div>
     </div>
   </div>
@@ -80,14 +84,14 @@
 
 <script>
 // @ is an alias to /src
-import CategoryBox from "@/components/Category/CategoryBox.vue"
+import CategoryBoxHome from "@/components/Category/CategoryBoxHome.vue"
 import ProductBox from "@/components/Product/ProductBox.vue"
 
 export default {
   name: 'HomeView',
   props: ["baseURL", "products", "categories"],
   components: {
-    CategoryBox, ProductBox
+    CategoryBoxHome, ProductBox
   }, data() {
     return {
       category_size: 0,
@@ -110,6 +114,7 @@ export default {
     overflow: hidden;
   }
 }
+
 @media (min-width: 992px) {
   .carousel .carousel-item {
     height: 500px;

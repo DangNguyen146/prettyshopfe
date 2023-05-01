@@ -1,23 +1,28 @@
 <template>
-    <nav class="navbarsearch bg-white navbar bg-body-tertiary" :class="{ 'navbarsearch--fixed': navbarFixed }">
+    <nav class="navbarsearch navbar bg-body-tertiary" :class="{ 'navbarsearch--fixed': navbarFixed }">
         <div class="container-fluid">
             <router-link class="navbar-brand" :to="{ name: 'Home' }">
-                <img src="../../assets/logo/logo.png" style="width: 40px;" alt="">
-                <img src="../../assets/logo/text.png" class="d-none d-md-block ms-3" style="width: 150px;" alt="">
+                <img src="../../assets/logo/logo_white.png" style="width: 40px;" alt="">
+                <img src="../../assets/logo/text_white.png" class="d-none d-md-block ms-3" style="width: 150px;" alt="">
                 <span class="d-none d-md-block">
                 </span>
             </router-link>
             <form class="d-flex w-75 input-group" @submit="searchmore">
                 <input type="search" class="form-control rounded" placeholder="Search" v-model="string" aria-label="Search"
                     aria-describedby="search-addon" />
-                <button class="btn btn-outline-warning" type="submit">search</button>
+                <button class="btn btn-search btn-outline-red" type="submit">search</button>
+                <div class="d-none d-md-flex">
+                    <CartButton></CartButton>
+                    <ButtonLoginSignup></ButtonLoginSignup>
+                </div>
             </form>
-
         </div>
     </nav>
 </template>
   
 <script>
+import ButtonLoginSignup from "@/components/Button/ButtonLoginSignup.vue"
+import CartButton from "@/components/Button/CartButton.vue"
 
 export default {
     name: "NavbarSearch",
@@ -27,6 +32,7 @@ export default {
             string: ""
         };
     },
+    components: { ButtonLoginSignup, CartButton },
     mounted() {
         window.addEventListener('scroll', this.handleScroll);
     },
@@ -57,8 +63,13 @@ export default {
 .navbarsearch {
     transition: top 1s, transform 1s;
     /* add transition effect */
+    background-color: #e5012b !important;
 }
-
+.btn-search:hover{
+    background-color: #ff012f !important;
+    border: 1px solid #fff;
+    color: #fff;
+}
 .navbarsearch--fixed {
     position: fixed;
     top: 0px;
@@ -70,6 +81,11 @@ export default {
     transform: translateY(80px);
     /* apply animation */
     animation: slideDown 1s forwards;
+}
+.btn-outline-red{
+    border: 1px solid #fff;
+    color: #fff;
+    font-weight: 500;
 }
 
 @keyframes slideDown {
