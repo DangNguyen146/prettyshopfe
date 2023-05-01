@@ -7,24 +7,24 @@
                 <span class="d-none d-md-block">
                 </span>
             </router-link>
-            <div class="d-flex w-75 input-group">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+            <form class="d-flex w-75 input-group" @submit="searchmore">
+                <input type="search" class="form-control rounded" placeholder="Search" v-model="string" aria-label="Search"
                     aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-warning">search</button>
-            </div>
+                <button class="btn btn-outline-warning" type="submit">search</button>
+            </form>
 
         </div>
     </nav>
 </template>
   
 <script>
-/* eslint-disable vue/multi-word-component-names */
 
 export default {
     name: "NavbarSearch",
     data() {
         return {
-            navbarFixed: false
+            navbarFixed: false,
+            string: ""
         };
     },
     mounted() {
@@ -34,6 +34,14 @@ export default {
         window.removeEventListener('scroll', this.handleScroll);
     },
     methods: {
+        searchmore(e) {
+            e.preventDefault();
+
+            this.$router.push({
+                name: 'SearchView',
+                params: { string: this.string },
+            });
+        },
         handleScroll() {
             if (window.pageYOffset > 0) {
                 this.navbarFixed = true;

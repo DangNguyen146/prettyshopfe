@@ -26,6 +26,17 @@ import SuccessPayment from '../views/Helper/Payment/SuccessPayment.vue';
 import OrderDetail from "../views/user/Order/OrderDetail.vue"
 import OrderView from "../views/user/Order/OrderView.vue"
 
+import SearchView from "../views/user/SearchPage/SearchView.vue"
+
+import AdminView from "../views/Admin/AdminView.vue"
+import ProductAdmin from "../views/Admin/Product/Product.vue"
+import AddProduct from "../views/Admin/Product/AddProduct.vue"
+import OrderAdmin from "../views/Admin/OrderAdmin/OrderAdmin.vue"
+import OrderAdminDetail from "../views/Admin/OrderAdmin/OrderAdminDetail.vue"
+import UserManager from "../views/Admin/User/UserManager.vue"
+import EditUserManager from "../views/Admin/User/EditUserManager.vue"
+
+
 const routes = [
   {
     path: '/',
@@ -101,7 +112,7 @@ const routes = [
   },
   {
     path: '/admin/category',
-    name: 'AdminCategory',
+    name: 'CategoryAdmin',
     component: CategoryAdmin,
     meta: {
       title: 'Manager category'
@@ -146,10 +157,74 @@ const routes = [
     component: OrderView
   },
   {
-    path:'/order/:id',
-    name:'OrderDetail',
+    path: '/order/:id',
+    name: 'OrderDetail',
     component: OrderDetail
-  }
+  },
+  {
+    path: '/search/:string',
+    name: 'SearchView',
+    component: SearchView,
+    meta: {
+      title: 'Search'
+    },
+  },
+  {
+    path: '/admin',
+    name: 'AdminView',
+    component: AdminView,
+    meta: {
+      title: 'AdminView'
+    },
+  },
+  {
+    path: '/admin/product',
+    name: 'ProductAdmin',
+    component: ProductAdmin,
+    meta: {
+      title: 'Product Admin'
+    },
+  },
+  {
+    path: '/admin/product/add',
+    name: 'AddProduct',
+    component: AddProduct,
+    meta: {
+      title: 'Add prodcut Admin'
+    },
+  },
+  {
+    path: '/admin/order',
+    name: 'OrderAdmin',
+    component: OrderAdmin,
+    meta: {
+      title: 'Order Admin'
+    },
+  },
+  {
+    path: '/admin/order/:id',
+    name: 'OrderAdminDetail',
+    component: OrderAdminDetail,
+    meta: {
+      title: 'Order Detail Admin'
+    },
+  },
+  {
+    path: '/admin/user',
+    name: 'UserManager',
+    component: UserManager,
+    meta: {
+      title: 'User Manager Admin'
+    },
+  }, 
+  {
+    path: '/admin/user/edit/:id',
+    name: 'EditUserManager',
+    component: EditUserManager,
+    meta: {
+      title: 'Edit User Manager Admin'
+    },
+  },
 ]
 
 const router = createRouter({

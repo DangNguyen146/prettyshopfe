@@ -1,8 +1,9 @@
 <template>
   <NavBar :products_num="products_num" v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
   <NavbarSearch v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
-  <router-view v-if="products && categories" :baseURL="baseURL" :products="products" :categories="categories"
-    @fetchData="fetchData"></router-view>
+  <router-view v-if="products && categories" :baseURL="baseURL" :role="role" :products="products" :categories="categories"
+    @fetchData="fetchData" >
+  </router-view>
   <Footer v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
 </template>
 
@@ -35,6 +36,7 @@ export default {
       token: null,
       cartCount: 0,
       products_num: 0,
+      role: "user",
     };
   },
   methods: {
@@ -60,7 +62,7 @@ export default {
             if (response.status == 200) {
               // update cart
               this.cartCount = Object.keys(response.data.cartItems).length;
-              this.$store.commit('incrementCart', {value: 0 , callapi: this.cartCount});
+              this.$store.commit('incrementCart', { value: 0, callapi: this.cartCount });
             }
           },
           (error) => {
@@ -68,15 +70,23 @@ export default {
           }
         );
       }
+      //fetch role
+      await axios
+        .get(this.baseURL + `user/getrole?token=${this.token}`)
+        .then((res) => {
+          if(res.data.role=="admin")
+            this.$store.commit('setRole', { value: 1});
+        })
+        .catch((err) => console.log(err));
     },
     async fetchDataWish() {
       await axios
         .get(this.baseURL + 'wishlist/' + this.token)
         .then(data => {
           this.products_num = data.data.length;
-          
+
           this.$store.commit('increment', this.products_num);
-         }) // Thay đổi trạng thái trong store })
+        }) // Thay đổi trạng thái trong store })
         .catch(err => console.log(err));
     }
   },

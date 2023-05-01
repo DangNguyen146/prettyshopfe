@@ -5,7 +5,8 @@ const store = createStore({
     // định nghĩa state
     return {
       count: 0,
-      countCart: 0
+      countCart: 0,
+      role: 0
     }
   },
   mutations: {
@@ -24,6 +25,10 @@ const store = createStore({
       else
         state.countCart+= payload.value
     },
+    setRole(state, role){
+      
+      state.role = role;
+    }
   },
   actions: {
     // định nghĩa actions
@@ -32,6 +37,9 @@ const store = createStore({
     },
     incrementCart({ commit }, payload) {
       commit('incrementCart', payload)
+    },
+    getRole({ commit }, role) {
+      commit('setRole', role)
     }
   },
   getters: {
@@ -41,6 +49,9 @@ const store = createStore({
     },
     getCountCart: (state) => {
       return state.countCart
+    },
+    getRole: (state) => {
+      return state.role
     }
   }
 })

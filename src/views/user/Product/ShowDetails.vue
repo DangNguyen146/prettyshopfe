@@ -52,6 +52,14 @@
                 </button>
             </div>
         </div>
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header"><h3>Comment</h3></div>
+                <div class="card-body">
+                    <CommentsBox :productId="product.id" :product="product" />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
   
@@ -59,6 +67,8 @@
 import swal from 'sweetalert';
 const axios = require("axios");
 import { apiUrl } from "@/config/config";
+import CommentsBox from "@/components/CommentsBox/CommentsBox.vue";
+
 import { mapState, mapGetters } from 'vuex';
 export default {
     name:"ShowDetail",
@@ -78,6 +88,7 @@ export default {
         ...mapState(['count']),
         ...mapGetters(['getCount']),
     },
+    components: {CommentsBox},
     methods: {
         addToWishList() {
             this.$store.commit('increment');

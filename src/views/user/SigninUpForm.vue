@@ -98,6 +98,8 @@ export default {
                 .post(`${this.baseURL}user/signIn`, user)
                 .then((res) => {
                     localStorage.setItem("token", res.data.token);
+                    localStorage.setItem("firstName", res.data.firstName);
+                    localStorage.setItem("lastName", res.data.lastName);
                     this.$emit("fetchData");
                     this.$router.push({ name: "Home" });
                 })

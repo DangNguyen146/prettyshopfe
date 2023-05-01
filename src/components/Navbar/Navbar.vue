@@ -85,8 +85,8 @@
                                 <li>
                                     <router-link :to="{ name: 'OrderView' }" class="dropdown-item" href="#">Your order</router-link>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">My profile</a>
+                                <li v-if="role">
+                                    <router-link   class="dropdown-item" :to="{ name: 'AdminView' }">Admin</router-link >
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">Settings</a>
@@ -112,7 +112,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     name: "NavBar",
     computed: {
-        ...mapState(['count', 'countCart']),
+        ...mapState(['count', 'countCart', 'role']),
         ...mapGetters(['getCount', 'getCountCart']),
     },
     data() {
@@ -131,15 +131,11 @@ export default {
                 icon: "success",
                 closeOnClickOutside: false,
             });
-        },
-        incrementCount() {
-            // return this.$store.commit('increment'); // Thay đổi trạng thái trong store
-            
-        },
-
+        }
     },
     mounted() {
         this.token = localStorage.getItem("token");
+
     },
 };
 
