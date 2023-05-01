@@ -38,6 +38,10 @@ import OrderAdminDetail from "../views/Admin/OrderAdmin/OrderAdminDetail.vue"
 import UserManager from "../views/Admin/User/UserManager.vue"
 import EditUserManager from "../views/Admin/User/EditUserManager.vue"
 
+import ProfileView from "../views/user/Profile/ProfileView.vue"
+import ChangePassword from "../views/user/Profile/ChangePassword.vue"
+import EditProfile from "../views/user/Profile/EditProfile.vue"
+
 
 const routes = [
   {
@@ -240,6 +244,30 @@ const routes = [
     component: EditUserManager,
     meta: {
       title: 'Edit User Manager Admin'
+    },
+  }, 
+  {
+    path: '/profile',
+    name: 'ProfileView',
+    component: ProfileView,
+    meta: {
+      title: 'Profile View'
+    },
+  },
+  {
+    path: '/changepassword',
+    name: 'ChangePassword',
+    component: ChangePassword,
+    meta: {
+      title: 'change password View'
+    },
+  },
+  {
+    path: '/editprofile',
+    name: 'EditProfile',
+    component: EditProfile,
+    meta: {
+      title: 'edit profile View'
     },
   },
 ]

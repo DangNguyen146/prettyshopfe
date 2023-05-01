@@ -18,14 +18,14 @@
                 loading="lazy" />
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-            <li>
+            <li v-if="role">
                 <router-link :to="{ name: 'OrderView' }" class="dropdown-item" href="#">Your order</router-link>
             </li>
             <li v-if="role">
                 <router-link class="dropdown-item" :to="{ name: 'AdminView' }">Admin</router-link>
             </li>
-            <li>
-                <a class="dropdown-item" href="#">Settings</a>
+            <li v-if="role">
+                <router-link class="dropdown-item" href="#" :to="{name: 'ProfileView'}">Settings</router-link>
             </li>
             <li>
                 <a class="dropdown-item" href="#" @click="signout">Logout</a>

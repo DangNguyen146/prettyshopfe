@@ -37,6 +37,11 @@
                                                 <div v-if="loading" class="spinner-border spinner-border-sm" role="status">
                                                     <span class="sr-only">Loading...</span>
                                                 </div>
+                                                <form @submit="forgotpassword" class="needs-validation">
+                                                    <span>* Please input email</span>
+                                                    <button class="btn btn-outline-danger btn-lg mb-5" type="submit">Forgot
+                                                        password</button>
+                                                </form>
                                             </div>
                                         </div>
 
@@ -74,6 +79,9 @@
 <script>
 const axios = require("axios");
 import swal from 'sweetalert';
+import { apiUrl } from "@/config/config";
+
+
 export default {
     name: "SigninUpForm",
     props: ["baseURL"],
@@ -115,6 +123,24 @@ export default {
                     this.loading = false;
                 });
         },
+        async forgotpassword(e) {
+            e.preventDefault();
+            await axios
+                .post(`${apiUrl}user/resetpassword?email=${this.email}`)
+                .then(() => {
+                    // redirect to home profile
+                    this.$router.replace("/");
+                    swal({
+                        text: "Check mail.",
+                        icon: "success",
+                        closeOnClickOutside: false,
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+        }
     },
     mounted() {
         this.loading = false;
