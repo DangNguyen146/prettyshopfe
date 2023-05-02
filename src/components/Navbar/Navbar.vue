@@ -6,14 +6,19 @@
                     Hotline: 0817764291 | Email: blacksonia.tm@gmail.com
                 </ul>
             </div>
-            <button class="btn btn-outline-light border border-white navbar-toggler pt-0 pb-1 px-2" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+            <button class="btn btn-outline-light border border-white navbar-toggler pt-0 pb-1 px-2" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2"
+                aria-label="Toggle navigation">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-justify"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
                 </svg>
             </button>
+            <div class="d-flex d-md-none">
+                <CartButton></CartButton>
+                <ButtonLoginSignup></ButtonLoginSignup>
+            </div>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2"
                 aria-labelledby="offcanvasNavbar2Label">
                 <div class="offcanvas-header">
@@ -25,7 +30,7 @@
 
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ">
                         <li class="nav-item" :class="{ 'active': $route.name == 'Home' }">
-                            <router-link class="nav-link text-black" :to="{ name: 'Home' }" >Home</router-link>
+                            <router-link class="nav-link text-black" :to="{ name: 'Home' }">Home</router-link>
                         </li>
 
                         <li class="nav-item" :class="{ 'active': $route.name == 'Category' }">
@@ -54,8 +59,8 @@
 <script>
 import swal from 'sweetalert';
 import { mapState, mapGetters } from 'vuex';
-// import ButtonLoginSignup from "../../components/Button/ButtonLoginSignup.vue"
-// import CartButton from "../../components/Button/CartButton.vue"
+import ButtonLoginSignup from "../../components/Button/ButtonLoginSignup.vue"
+import CartButton from "../../components/Button/CartButton.vue"
 
 export default {
     name: "NavBar",
@@ -66,7 +71,7 @@ export default {
     props: {
         active: Number,
     },
-    // components: { ButtonLoginSignup, CartButton },
+    components: { ButtonLoginSignup, CartButton },
     data() {
         return {
             token: localStorage.getItem("token"),
@@ -103,7 +108,8 @@ export default {
     font-size: 14px;
     text-transform: none;
 }
-.navigation .active{
+
+.navigation .active {
     font-weight: 600;
 }
 </style>
