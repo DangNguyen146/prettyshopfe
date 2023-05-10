@@ -1,5 +1,5 @@
 <template>
-    <div class="container text-center">
+    <div class="container text-center bg-dark text-light">
         <h1>You will be redirected to payment page</h1>
 
         <div class="alert alert-primary w-100 text-center" >

@@ -1,5 +1,5 @@
 <template>
-    <div class="container text-center">
+    <div class="container text-center bg-dark text-light">
         <h1>Pay success, please back home</h1>
         <p>Thanks!</p>
     </div>
