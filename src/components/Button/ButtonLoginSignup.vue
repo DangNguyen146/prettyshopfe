@@ -18,14 +18,14 @@
                 loading="lazy" />
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-            <li >
+            <li>
                 <router-link :to="{ name: 'OrderView' }" class="dropdown-item" href="#">Your order</router-link>
             </li>
             <li v-if="role">
                 <router-link class="dropdown-item" :to="{ name: 'AdminView' }">Admin</router-link>
             </li>
-            <li >
-                <router-link class="dropdown-item" href="#" :to="{name: 'ProfileView'}">Settings</router-link>
+            <li>
+                <router-link class="dropdown-item" href="#" :to="{ name: 'ProfileView' }">Settings</router-link>
             </li>
             <li>
                 <a class="dropdown-item" href="#" @click="signout">Logout</a>
@@ -37,7 +37,7 @@
 <script>
 import swal from 'sweetalert';
 import { mapState, mapGetters } from 'vuex';
-
+const axios = require("axios");
 
 export default {
     name: "ButtonLoginSignup",
@@ -61,11 +61,21 @@ export default {
                 icon: "success",
                 closeOnClickOutside: false,
             });
+        },
+        async getrol() {
+            await axios
+                .get(this.baseURL + `user/getrole?token=${this.token}`)
+                .then((res) => {
+                    if (res.data.role == "admin")
+                        this.$store.commit('setRole', { value: 1 });
+                })
+                .catch((err) => console.log(err));
         }
     },
     mounted() {
         this.token = localStorage.getItem("token");
-
+        //fetch role
+        getrole();
     },
 };
 
@@ -73,12 +83,13 @@ export default {
 
 
 <style scoped>
-.btn-signin{
+.btn-signin {
     background-color: #fff;
     color: #ff0000;
     font-weight: 600;
 }
-.btn-signup{
+
+.btn-signup {
     font-weight: 600;
     color: #fff;
 }
