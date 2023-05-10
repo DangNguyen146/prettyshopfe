@@ -75,7 +75,7 @@ export default {
     mounted() {
         this.token = localStorage.getItem("token");
         //fetch role
-        getrole();
+        this.getrole();
     },
 };
 
