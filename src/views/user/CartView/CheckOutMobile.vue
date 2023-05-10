@@ -2,7 +2,7 @@
     <div class="container text-center bg-dark text-light">
         <h1>You will be redirected to payment page</h1>
 
-        <div class="alert alert-primary w-100 text-center" >
+        <div class="alert alert-primary w-100 text-center">
             While making payment use card number 4242424242424242 and enter random
             cvv(3 digit)
         </div>
@@ -54,6 +54,21 @@ export default {
                                 productId: products.cartItems[i].product.id,
                                 userId: products.cartItems[i].userId,
                             });
+
+                        axios
+                            .post(
+                                apiUrl + 'order/create-checkout-session',
+                                this.checkoutBodyArray
+                            )
+                            .then((response) => {
+                                localStorage.setItem('sessionId', response.data.sessionId);
+                                return response.data;
+                            })
+                            .then((session) => {
+                                return this.stripe.redirectToCheckout({
+                                    sessionId: session.sessionId,
+                                });
+                            });
                     }
                     console.log(this.checkoutBodyArray);
                 },
@@ -85,7 +100,7 @@ export default {
         // get all the cart items
         this.getAllItems();
         this.stripe = window.Stripe(this.stripeAPIToken);
-        this.goToCheckout();
+
     },
 };
 </script>
