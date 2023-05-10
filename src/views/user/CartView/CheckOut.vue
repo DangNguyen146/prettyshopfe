@@ -63,10 +63,6 @@ export default {
         },
 
         goToCheckout() {
-            console.log("------------1---------------------")
-
-            console.log(this.checkoutBodyArray);
-            console.log("------------2---------------------")
             axios
                 .post(
                     this.baseURL + 'order/create-checkout-session',
