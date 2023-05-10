@@ -43,7 +43,7 @@ export default {
     name: "ButtonLoginSignup",
     computed: {
         ...mapState(['count', 'countCart', 'role']),
-        ...mapGetters(['getCount', 'getCountCart']),
+        ...mapGetters(['getCount', 'getCountCart', 'getRole']),
     },
     data() {
         return {
