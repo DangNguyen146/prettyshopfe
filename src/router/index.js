@@ -21,6 +21,8 @@ import WishList from '../views/user/Wishlist.vue'
 
 import CartView from '../views/user/CartView/CartView.vue'
 import CheckOut from '../views/user/CartView/CheckOut.vue'
+import CheckOutMobile from '../views/user/CartView/CheckOutMobile.vue'
+import MobileCheckouTrue from '../views/user/CartView/MobileCheckouTrue.vue'
 
 import FailedPayment from '../views/Helper/Payment/FailedPayment.vue';
 import SuccessPayment from '../views/Helper/Payment/SuccessPayment.vue';
@@ -162,6 +164,16 @@ const routes = [
     name: 'CheckOut',
     component: CheckOut
   },
+  {
+    path: '/checkoutmobile/:token',
+    name: 'CheckOutMobile',
+    component: CheckOutMobile
+  },
+  {
+    path: '/mobilecheckouttrue',
+    name: 'MobileCheckouTrue',
+    component: MobileCheckouTrue
+  },  
   {
     path: '/payment/success',
     name: 'SuccessPayment',

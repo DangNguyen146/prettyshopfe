@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="mobile == false">
         <div class="row">
             <div class="col-12 text-center">
                 <h4 class="pt-3">Your Orders</h4>
@@ -28,6 +28,7 @@
             </div>
         </div>
     </div>
+    
 </template>
   
 <script>
@@ -37,7 +38,8 @@ export default {
     data() {
         return {
             token: null,
-            orderList: []
+            orderList: [],
+            mobile: false,
         }
     },
     props: ["baseURL"],
@@ -71,7 +73,10 @@ export default {
     },
     mounted() {
         this.token = localStorage.getItem("token");
+        if(this.token)
         this.listOrders();
+        else
+        this.$router.replace("/mobilecheckouttrue");
     },
 };
 

@@ -1,10 +1,10 @@
 <template>
-  <NavBar :products_num="products_num" v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
-  <NavbarSearch v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
+  <NavBar :products_num="products_num" v-if="!['SignupUpForm', 'SigninUpForm', 'CheckOutMobile','MobileCheckouTrue'].includes($route.name)" />
+  <NavbarSearch v-if="!['SignupUpForm', 'SigninUpForm', 'CheckOutMobile', 'MobileCheckouTrue'].includes($route.name)" />
   <router-view v-if="products && categories" :baseURL="baseURL" :role="role" :products="products" :categories="categories"
     @fetchData="fetchData">
   </router-view>
-  <Footer v-if="!['SignupUpForm', 'SigninUpForm'].includes($route.name)" />
+  <Footer v-if="!['SignupUpForm', 'SigninUpForm', 'CheckOutMobile', 'MobileCheckouTrue'].includes($route.name)" />
 </template>
 
 <script>
