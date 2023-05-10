@@ -85,6 +85,7 @@ export default {
         // get all the cart items
         this.getAllItems();
         this.stripe = window.Stripe(this.stripeAPIToken);
+        this.goToCheckout();
     },
 };
 </script>
