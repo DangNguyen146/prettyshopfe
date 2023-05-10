@@ -62,7 +62,7 @@ export default {
                 closeOnClickOutside: false,
             });
         },
-        async getrol() {
+        async getrole() {
             await axios
                 .get(this.baseURL + `user/getrole?token=${this.token}`)
                 .then((res) => {
