@@ -21,10 +21,10 @@
             <li v-if="role">
                 <router-link :to="{ name: 'OrderView' }" class="dropdown-item" href="#">Your order</router-link>
             </li>
-            <li v-if="role">
+            <li>
                 <router-link class="dropdown-item" :to="{ name: 'AdminView' }">Admin</router-link>
             </li>
-            <li v-if="role">
+            <li>
                 <router-link class="dropdown-item" href="#" :to="{name: 'ProfileView'}">Settings</router-link>
             </li>
             <li>
