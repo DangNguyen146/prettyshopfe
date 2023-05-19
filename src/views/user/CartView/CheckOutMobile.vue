@@ -56,7 +56,7 @@ export default {
                             });
                         axios
                             .post(
-                                apiUrl + 'order/create-checkout-session',
+                                apiUrl + 'order/create-checkout-session/pc',
                                 this.checkoutBodyArray
                             )
                             .then((response) => {
@@ -81,7 +81,7 @@ export default {
         goToCheckout() {
             axios
                 .post(
-                    apiUrl + 'order/create-checkout-session',
+                    apiUrl + 'order/create-checkout-session/pc',
                     this.checkoutBodyArray
                 )
                 .then((response) => {
