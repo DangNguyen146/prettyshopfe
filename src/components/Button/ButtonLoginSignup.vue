@@ -35,6 +35,7 @@
 </template>
   
 <script>
+import { apiUrl } from '@/config/config';
 import swal from 'sweetalert';
 import { mapState, mapGetters } from 'vuex';
 const axios = require("axios");
@@ -64,7 +65,7 @@ export default {
         },
         async getrole() {
             await axios
-                .get(this.baseURL + `user/getrole?token=${this.token}`)
+                .get(`${apiUrl}user/getrole?token=${this.token}`)
                 .then((res) => {
                     if (res.data.role == "admin")
                         this.$store.commit('setRole', { value: 1 });

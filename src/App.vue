@@ -72,7 +72,7 @@ export default {
       }
       //fetch role
       await axios
-        .get(this.baseURL + `user/getrole?token=${this.token}`)
+        .get(`${apiUrl}user/getrole?token=${this.token}`)
         .then((res) => {
           if (res.data.role == "admin")
             this.$store.commit('setRole', { value: 1 });
@@ -81,7 +81,7 @@ export default {
     },
     async fetchDataWish() {
       await axios
-        .get(this.baseURL + 'wishlist/' + this.token)
+        .get('${apiUrl}wishlist/' + this.token)
         .then(data => {
           this.products_num = data.data.length;
 
