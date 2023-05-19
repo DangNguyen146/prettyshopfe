@@ -11,7 +11,7 @@
             </router-link>
             <p class="card-text"><sup>$</sup>{{ product.price }}</p>
             <p class="card-text font-italic">
-                {{ product.description.substring(0, 65) }}...
+                {{ product.description }}...
             </p>
             <router-link id="edit-product" :to="{ name: 'EditProduct', params: { id: product.id } }"
                 v-show="$route.name == 'ProductAdmin'">

@@ -57,7 +57,7 @@ export default {
                                 id: order.id,
                                 totalCost: order.totalPrice,
                                 // get short date
-                                orderdate: order.createdDate.substring(0, 10),
+                                orderdate: order.createdDate,
                                 // get image of the first orderItem of the order
                                 imageURL: order.orderItems[0].product.imageURL,
                                 // get total items

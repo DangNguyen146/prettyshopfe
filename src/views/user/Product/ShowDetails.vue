@@ -126,6 +126,7 @@ export default {
                 .post(`${this.baseURL}cart/add?token=${this.token}`, {
                     productId: productId,
                     quantity: this.quantity,
+                    quantityBySizes: {}
                 })
                 .then(
                     (response) => {
