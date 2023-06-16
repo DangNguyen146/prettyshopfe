@@ -3,6 +3,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 //admin
 import AddCategory from '../views/Admin/Category/AddCategory.vue'
 import CategoryAdmin from '../views/Admin/Category/Category.vue'
+
+import TagAdmin from '../views/Admin/Tag/Tag.vue'
+import AddTag from '../views/Admin/Tag/AddTag.vue'
+import EditTag from '../views/Admin/Tag/EditTag.vue'
+import TagProduct from '../views/Admin/Tag/TagProduct.vue'
+
+import ColorAdmin from '../views/Admin/Color/Color.vue'
+import AddColor from '../views/Admin/Color/AddColor.vue'
+import EditColor from '../views/Admin/Color/EditColor.vue'
+
 import EditCategory from '../views/Admin/Category/EditCategory.vue'
 import ShowDetails from '../views/user/Product/ShowDetails.vue'
 import EditProduct from '../views/Admin/Product/EditProduct.vue'
@@ -139,6 +149,62 @@ const routes = [
     component: CategoryAdmin,
     meta: {
       title: 'Manager category'
+    },
+  },
+  {
+    path: '/admin/tag',
+    name: 'TagAdmin',
+    component: TagAdmin,
+    meta: {
+      title: 'Manager tag'
+    },
+  },
+  {
+    path: '/admin/color/add',
+    name: 'AddColor',
+    component: AddColor,
+    meta: {
+      title: 'Add Color'
+    },
+  },
+  {
+    path: '/admin/color/:id',
+    name: 'EditColor',
+    component: EditColor,
+    meta: {
+      title: 'Edit color'
+    },
+  },
+  {
+    path: '/admin/color',
+    name: 'ColorAdmin',
+    component: ColorAdmin,
+    meta: {
+      title: 'Manager color'
+    },
+  },
+  {
+    path: '/admin/tag/add',
+    name: 'AddTag',
+    component: AddTag,
+    meta: {
+      title: 'Add tag'
+    },
+  },
+  {
+    path: '/admin/tag/:id',
+    name: 'EditTag',
+    component: EditTag,
+    meta: {
+      title: 'Introduce'
+    },
+  },
+  {
+    path: '/admin/tagproduct/:id',
+    name: 'TagProduct',
+    component: TagProduct,
+    meta: {
+      title: 'TagProduct'
     },
   },
   {

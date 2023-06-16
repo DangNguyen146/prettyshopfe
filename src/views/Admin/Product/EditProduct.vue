@@ -78,8 +78,8 @@
                                     </div>
 
                                     <div class="col-12 my-5"></div>
-                                    <form class="input-group input-group-sm mb-3 py-1  mt-2 col-12"
-                                        @submit="addSizeQuality" v-if="addsizeState == true">
+                                    <form class="input-group input-group-sm mb-3 py-1  mt-2 col-12" @submit="addSizeQuality"
+                                        v-if="addsizeState == true">
                                         <div class="container">
                                             <div class="input-group input-group-sm mb-3" v-if="addsizeState == true">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Add size</span>
@@ -92,12 +92,42 @@
                                                 <input type="text" class="form-control" aria-label="Sizing example input"
                                                     v-model="addSizeQualityfy" aria-describedby="inputGroup-sizing-sm">
                                             </div>
-                                            <button class="btn btn-primary col-4 ms-2" type="submit" v-if="addsizeState">Submit
+                                            <button class="btn btn-primary col-4 ms-2" type="submit"
+                                                v-if="addsizeState">Submit
                                                 size</button>
                                         </div>
                                     </form>
                                     <button class="btn btn-success col-4" v-if="!addsizeState" @click="addSizeState">Add
                                         size</button>
+
+                                    <div class="col-12">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Add tag</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h5>Select tag</h5>
+                                    <div class="container">
+                                        <p>Tag curent(Click to remove)</p>
+                                        <span class="badge text-bg-info mx-3 pe-auto" v-for="(item, index) in tagsProduct" :key="index" v-on:click="removeTag(item.id)">
+                                                {{ item.id }} - Tagname: {{ item.tagName }} - Description: {{ item.tagDescription }}</span>
+                                    </div>
+                                    <p>Add tag</p>
+                                    <select class="form-select" aria-label="Default select example" v-model="selected">
+                                        <option selected>Open this select menu</option>
+                                        <option v-for="(item, index) in tags" :value="item.id" :key="index">
+                                            {{ item.tag }} - Description: {{ item.description }}</option>
+
+                                    </select>
+                                    <button class="btn btn-primary col-4 ms-2" @click="addTag" type="submit">Add
+                                        tag</button>
                                 </div>
                             </div>
                         </div>
@@ -109,11 +139,13 @@
 </template>
 
 <script>
-
+/* eslint-disable */
 import { apiUrl } from "@/config/config";
 const axios = require("axios");
 import NavbarAdmin from "../../../components/Navbar/NavbarAdmin.vue"
 import swal from 'sweetalert';
+/* eslint-disable vue/multi-word-component-names */
+
 export default {
     name: "EditProduct",
     props: ["categories"],
@@ -126,7 +158,9 @@ export default {
             selected: -1,
             addsizeState: false,
             addSize: "",
-            addSizeQualityfy: 0
+            addSizeQualityfy: 0,
+            tags: [],
+            tagsProduct: [],
         }
     },
     methods: {
@@ -147,6 +181,33 @@ export default {
         },
         addSizeState() {
             this.addsizeState = true;
+        },
+        removeTag(id) {
+            try {
+                axios.delete(`${apiUrl}tag/${id}`)
+                    .then(
+                        (response) => {
+                            if (response.status == 200) {
+                                swal({
+                                    text: "tag delete!",
+                                    icon: "success",
+                                    closeOnClickOutside: false,
+                                });
+                            }
+                            else {
+                                swal("Poof! Your product has been deleted! Please reload page", {
+                                    icon: "success",
+                                });
+
+                            }
+                        },
+                        (error) => {
+                            console.log(error);
+                        }
+                    );
+            } catch (error) {
+                swal("Oops...", "Failed to delete the product. " + error.response.data.message, "error");
+            }
         },
         async deleteSize(e) {
             e.preventDefault();
@@ -219,6 +280,36 @@ export default {
                 })
                 .catch(erro => console.log(erro))
         },
+        async getTags() {
+            await axios.get(`${apiUrl}productag/`)
+                .then(res => this.tags = res.data)
+                .catch(erro => console.log(erro));
+
+            await axios.get(`${apiUrl}tag/product/${this.$route.params.id}/tags`)
+                .then(res1 => this.tagsProduct = res1.data)
+                .catch(erro => console.log(erro))
+        },
+        addTag() {
+
+            axios({
+                method: 'post',
+                url: `${apiUrl}tag/${this.selected}/add-product?productId=${this.product.id}`,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(() => {
+                swal({
+                    text: 'Tag add successfully, reset page',
+                    icon: 'success'
+                })
+            }).catch((err) => {
+                console.log(err);
+                swal({
+                    text: err.response.data.message,
+                    icon: 'warning'
+                })
+            })
+        }
     },
     mounted() {
         if (!localStorage.getItem('token')) {
@@ -227,6 +318,7 @@ export default {
         }
         this.id = this.$route.params.id;
         this.product = this.getProduct();
+        this.getTags();
     }
 }
 </script>

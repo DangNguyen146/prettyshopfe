@@ -16,6 +16,22 @@
                 Home
             </router-link>
         </li>
+        <li class="nav-item">
+            <router-link :to="{ name: 'TagAdmin' }" class="nav-link" :class="{ active: active == 5 }" aria-current="page">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tag
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link :to="{ name: 'ColorAdmin' }" class="nav-link" :class="{ active: active == 6 }" aria-current="page">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#color"></use>
+                </svg>
+                Color
+            </router-link>
+        </li>
         <li>
             <router-link :to="{ name: 'CategoryAdmin' }" class="nav-link link-body-emphasis"
                 :class="{ active: active == 1 }">

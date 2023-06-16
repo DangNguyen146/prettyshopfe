@@ -14,9 +14,9 @@
                 {{ product.description }}...
             </p>
             <router-link id="edit-product" :to="{ name: 'EditProduct', params: { id: product.id } }"
-                v-show="$route.name == 'ProductAdmin'">
+                v-show="$route.name == 'TagProduct' || $route.name == 'ProductAdmin' || $route.name == 'TagAdmin' || $route.name == 'ColorAdmin' ">
                 <button class="btn btn-primary">Edit</button>
-
+                <!-- <button href="#" class="btn btn-warning" @click="deleteProductTag()">Remove</button> -->
             </router-link>
             <button class="btn btn-danger" v-show="$route.name == 'ProductAdmin'" @click="deleteProduct">Delete</button>
         </div>
@@ -43,6 +43,7 @@ export default {
                 params: { id: this.product.id },
             });
         },
+       
         async deleteProduct() {
             const willDelete = await swal({
                 title: "Are you sure?",

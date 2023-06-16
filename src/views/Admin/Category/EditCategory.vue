@@ -50,8 +50,8 @@ import { apiUrl } from "@/config/config";
 import NavbarAdmin from "../../../components/Navbar/NavbarAdmin.vue"
 
 export default {
-    components: { NavbarAdmin }
-    , data() {
+    components: { NavbarAdmin },
+    data() {
         return {
             category: null,
             id: null,
