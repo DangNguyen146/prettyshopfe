@@ -126,11 +126,43 @@
                                             {{ item.tag }} - Description: {{ item.description }}</option>
 
                                     </select>
-                                    <button class="btn btn-primary col-4 ms-2" @click="addTag" type="submit">Add
+                                    <button class="btn btn-info col-4 ms-2" @click="addTag" type="submit">Add
                                         tag</button>
                                 </div>
                             </div>
                         </div>
+
+
+
+
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Add color</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h5>Select color</h5>
+                                    <div class="container">
+                                        <p>Color curent(Click to remove)</p>
+                                        <span class="badge text-bg-primary mx-3 pe-auto" v-for="(item, index) in colorsProduct" :key="index" v-on:click="removeColor(item.id)">
+                                                {{ item.id }} - Colorname: {{ item.colorName }} - Description: {{ item.colorDescription }}</span>
+                                    </div>
+                                    <p>Add color</p>
+                                    <select class="form-select" aria-label="Default select example" v-model="selected">
+                                        <option selected>Open this select menu</option>
+                                        <option v-for="(item, index) in colors" :value="item.id" :key="index">
+                                            {{ item.color }} - Description: {{ item.description }}</option>
+
+                                    </select>
+                                    <button class="btn btn-primary col-4 ms-2" @click="addColor" type="submit">Add
+                                        color</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -161,6 +193,9 @@ export default {
             addSizeQualityfy: 0,
             tags: [],
             tagsProduct: [],
+
+            colors: [],
+            colorsProduct: [],
         }
     },
     methods: {
@@ -182,33 +217,7 @@ export default {
         addSizeState() {
             this.addsizeState = true;
         },
-        removeTag(id) {
-            try {
-                axios.delete(`${apiUrl}tag/${id}`)
-                    .then(
-                        (response) => {
-                            if (response.status == 200) {
-                                swal({
-                                    text: "tag delete!",
-                                    icon: "success",
-                                    closeOnClickOutside: false,
-                                });
-                            }
-                            else {
-                                swal("Poof! Your product has been deleted! Please reload page", {
-                                    icon: "success",
-                                });
-
-                            }
-                        },
-                        (error) => {
-                            console.log(error);
-                        }
-                    );
-            } catch (error) {
-                swal("Oops...", "Failed to delete the product. " + error.response.data.message, "error");
-            }
-        },
+        
         async deleteSize(e) {
             e.preventDefault();
             axios.post(`${apiUrl}product/${this.product.id}/deleteQuantityBySize?size=${this.product.size[this.selected]}`)
@@ -280,6 +289,33 @@ export default {
                 })
                 .catch(erro => console.log(erro))
         },
+        removeTag(id) {
+            try {
+                axios.delete(`${apiUrl}tag/${id}`)
+                    .then(
+                        (response) => {
+                            if (response.status == 200) {
+                                swal({
+                                    text: "tag delete!",
+                                    icon: "success",
+                                    closeOnClickOutside: false,
+                                });
+                            }
+                            else {
+                                swal("Poof! Your product has been deleted! Please reload page", {
+                                    icon: "success",
+                                });
+
+                            }
+                        },
+                        (error) => {
+                            console.log(error);
+                        }
+                    );
+            } catch (error) {
+                swal("Oops...", "Failed to delete the product. " + error.response.data.message, "error");
+            }
+        },
         async getTags() {
             await axios.get(`${apiUrl}productag/`)
                 .then(res => this.tags = res.data)
@@ -309,7 +345,75 @@ export default {
                     icon: 'warning'
                 })
             })
+        },
+
+
+
+
+        removeColor(id) {
+            try {
+                axios.delete(`${apiUrl}color/${id}`)
+                    .then(
+                        (response) => {
+                            if (response.status == 200) {
+                                swal({
+                                    text: "color delete!",
+                                    icon: "success",
+                                    closeOnClickOutside: false,
+                                });
+                            }
+                            else {
+                                swal("Poof! Your product has been deleted! Please reload page", {
+                                    icon: "success",
+                                });
+
+                            }
+                        },
+                        (error) => {
+                            console.log(error);
+                        }
+                    );
+            } catch (error) {
+                swal("Oops...", "Failed to delete the product. " + error.response.data.message, "error");
+            }
+        },
+        async getColors() {
+            await axios.get(`${apiUrl}produccolor/`)
+                .then(res => this.colors = res.data)
+                .catch(erro => console.log(erro));
+
+            await axios.get(`${apiUrl}color/product/${this.$route.params.id}/color`)
+                .then(res1 => this.colorsProduct = res1.data)
+                .catch(erro => console.log(erro))
+        },
+        addColor() {
+
+            axios({
+                method: 'post',
+                url: `${apiUrl}color/${this.selected}/add-product?productId=${this.product.id}`,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(() => {
+                swal({
+                    text: 'Color add successfully, reset page',
+                    icon: 'success'
+                })
+            }).catch((err) => {
+                console.log(err);
+                swal({
+                    text: err.response.data.message,
+                    icon: 'warning'
+                })
+            })
         }
+
+
+
+
+
+
+
     },
     mounted() {
         if (!localStorage.getItem('token')) {
@@ -319,6 +423,7 @@ export default {
         this.id = this.$route.params.id;
         this.product = this.getProduct();
         this.getTags();
+        this.getColors();
     }
 }
 </script>

@@ -9,9 +9,11 @@ import AddTag from '../views/Admin/Tag/AddTag.vue'
 import EditTag from '../views/Admin/Tag/EditTag.vue'
 import TagProduct from '../views/Admin/Tag/TagProduct.vue'
 
+
 import ColorAdmin from '../views/Admin/Color/Color.vue'
 import AddColor from '../views/Admin/Color/AddColor.vue'
 import EditColor from '../views/Admin/Color/EditColor.vue'
+import ColorProduct from '../views/Admin/Color/ColorProduct.vue'
 
 import EditCategory from '../views/Admin/Category/EditCategory.vue'
 import ShowDetails from '../views/user/Product/ShowDetails.vue'
@@ -205,6 +207,14 @@ const routes = [
     component: TagProduct,
     meta: {
       title: 'TagProduct'
+    },
+  },
+  {
+    path: '/admin/colorproduct/:id',
+    name: 'ColorProduct',
+    component: ColorProduct,
+    meta: {
+      title: 'ColorProduct'
     },
   },
   {
