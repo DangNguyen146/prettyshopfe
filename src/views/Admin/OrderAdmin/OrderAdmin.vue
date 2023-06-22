@@ -113,7 +113,7 @@ export default {
                                 imageURL: order.orderItems[0].product.imageURL,
                                 // get total items
                                 totalItems: order.orderItems.length,
-                                status: (order.status) ? JSON.parse(order.status) : order.status
+                                status: (order.status) ? order.status : JSON.parse(order.status).status
                             })
                         })
                     }
