@@ -110,7 +110,7 @@ export default {
                                 // get short date
                                 orderdate: order.createdDate,
                                 // get image of the first orderItem of the order
-                                imageURL: order.orderItems[0].product.imageURL,
+                                imageURL: order.orderItems[0].product.imageURL ? order.orderItems[0].product.imageURL : "" ,
                                 // get total items
                                 totalItems: order.orderItems.length,
                                 status: (order.status) ? order.status : JSON.parse(order.status)
